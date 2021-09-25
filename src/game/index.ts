@@ -3,9 +3,10 @@
 
 export * from './config'
 
-import { Box } from './box' 
+import { Box } from './box'
 import { initMap } from './map'
-import { render } from './render' 
+import { render } from './render'
+import { addTicker } from './ticker'
 
 
 export function startGame(map) {
@@ -18,16 +19,14 @@ export function startGame(map) {
     box.x = 1
     box.y = 3
 
-
     //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
     // 帧循环 ticker
-    function handleFrame() {
+    function handleTicker () {
         render(box, map)
-        requestAnimationFrame(handleFrame)
     }
-    requestAnimationFrame(handleFrame)
 
 
+    addTicker(handleTicker)
     
 
     // 方块可以掉落 添加游戏对象的移动行为
