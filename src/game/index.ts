@@ -6,6 +6,7 @@ export * from './config'
 import { Box } from './box' 
 export { map } from './map'
 import { initMap, map } from './map'
+import { render } from './render' 
 
 initMap()
 
@@ -13,17 +14,9 @@ initMap()
 // 我要有一个方块 利用oop对象的思想 将方块逻辑抽离 实现方块的行为
 
 const box = new Box()
-
-box.x = 0
-box.y = 2
+box.x = 1
+box.y = 3
 
 
 //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
-for(let i = 0; i < box.shape.length; i++) {
-    const arr: Array<number> = []
-      for(let j = 0; j < box.shape[0].length; j++) {
-        const row = i + box.y
-        const col = j + box.x
-        map[row][col] = 1
-      }
-}
+render(box, map)
