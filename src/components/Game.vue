@@ -3,7 +3,7 @@
   <div>
     <div class="row" v-for="row in gameRow" :key="row">
       <div v-for="col in gameCol" :key="col">
-        <Box></Box>
+        <Box :type="0"></Box>
       </div>
     </div>
   </div>
