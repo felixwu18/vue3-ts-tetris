@@ -1,7 +1,11 @@
 
 <template>
   <div>
-    game
+    <div class="row" v-for="row in 10" :key="row">
+      <div v-for="col in 10" :key="col">
+        1
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,5 +15,8 @@
 
 
 <style>
+.row {
+  display: flex;
+}
 
 </style>
