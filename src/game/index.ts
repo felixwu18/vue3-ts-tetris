@@ -9,7 +9,6 @@ import { render } from './render'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
 import { getBottomPoints } from './matrix'
-import { gameRow, gameCol } from '../game' // 业务逻辑与视图分开
 
 
 export function startGame(map) {
@@ -29,7 +28,7 @@ export function startGame(map) {
 
     function handleTicker (n) {
         if(isDown(n)) {
-            moveDown(box)
+            moveDown(box, map)
         }
         render(box, map)
     }
@@ -46,7 +45,7 @@ export function startGame(map) {
 }
 
 
-export function moveDown(box) {
+export function moveDown(box, map) {
     // 1. 获取 box 底部的所有的点
     // [
     //     [1, 1],
@@ -65,13 +64,15 @@ export function moveDown(box) {
     
     // y
     // point.y + box.y + 1 ≥ gameRow
+    const mapRow = map.length
     const foo = points.some(point => {
-        return point.y + box.y + 1 >= gameRow
+        return point.y + box.y + 1 >= mapRow
     })
     
     // 只要有一个点大于了 游戏范围的话，那就不可以移动了
     console.log(foo)
 
+    if(foo) return
 
     // 2. 检测是不是有某个点超出了游戏的范围
     box.y++
