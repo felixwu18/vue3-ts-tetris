@@ -20,14 +20,19 @@ export function startGame(map) {
 
 
     //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
-    render(box, map)
+    // 帧循环 ticker
+    function handleFrame() {
+        render(box, map)
+        requestAnimationFrame(handleFrame)
+    }
+    requestAnimationFrame(handleFrame)
 
+
+    
 
     // 方块可以掉落 添加游戏对象的移动行为
     window.addEventListener("keydown", () => {
         box.y++
         console.log('keydown')
-
-        render(box, map)
     })
 }
