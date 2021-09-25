@@ -7,6 +7,7 @@ import { Box } from './box'
 import { initMap } from './map'
 import { render } from './render'
 import { addTicker } from './ticker'
+import { intervalTimer } from './utils'
 
 
 export function startGame(map) {
@@ -41,14 +42,3 @@ export function startGame(map) {
     })
 }
 
-function intervalTimer(interval) {
-    let t = 0
-    return n => {
-        t += n
-        if(t >= interval) {
-            t = 0
-            return true
-        }
-        return false
-    }
-}
