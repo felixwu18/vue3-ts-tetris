@@ -20,8 +20,15 @@ export function startGame(map) {
     box.y = 3
 
     //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
-    // 帧循环 ticker
-    function handleTicker () {
+    // 1秒执行一次
+    let t = 0
+    let timeInterval = 1000
+    function handleTicker (n) {
+        t += n
+        if(t >= timeInterval) {
+            box.y++
+            t = 0
+        }
         render(box, map)
     }
 
