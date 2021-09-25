@@ -21,13 +21,11 @@ export function startGame(map) {
 
     //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
     // 1秒执行一次
-    let t = 0
     let timeInterval = 1000
+    const isDown = intervalTimer(timeInterval)
     function handleTicker (n) {
-        t += n
-        if(t >= timeInterval) {
+        if(isDown(n)) {
             box.y++
-            t = 0
         }
         render(box, map)
     }
@@ -41,4 +39,16 @@ export function startGame(map) {
         box.y++
         console.log('keydown')
     })
+}
+
+function intervalTimer(interval) {
+    let t = 0
+    return n => {
+        t += n
+        if(t >= interval) {
+            t = 0
+            return true
+        }
+        return false
+    }
 }
