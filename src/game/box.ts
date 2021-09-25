@@ -1,6 +1,6 @@
 
 
-// 形成box形状
+// 形成游戏对象box
 export class Box {
     shape: number[][];
     x: number;

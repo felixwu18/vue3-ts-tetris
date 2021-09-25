@@ -8,6 +8,8 @@ import { initMap } from './map'
 import { render } from './render'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
+import { getBottomPoints } from './matrix'
+import { gameRow, gameCol } from '../game' // 业务逻辑与视图分开
 
 
 export function startGame(map) {
@@ -24,9 +26,10 @@ export function startGame(map) {
     // 1秒执行一次
     let timeInterval = 1000
     const isDown = intervalTimer(timeInterval)
+
     function handleTicker (n) {
         if(isDown(n)) {
-            box.y++
+            moveDown(box)
         }
         render(box, map)
     }
@@ -42,3 +45,34 @@ export function startGame(map) {
     })
 }
 
+
+export function moveDown(box) {
+    // 1. 获取 box 底部的所有的点
+    // [
+    //     [1, 1],
+    //     [1, 1],
+    // ]
+    // const points: any = []
+
+    // box.shape[1].forEach((value, index) => {
+    //     points.push({
+    //         x: index,
+    //         y: 1
+    //     })
+    // })
+    // console.log(points);
+    const points = getBottomPoints(box.shape)
+    
+    // y
+    // point.y + box.y + 1 ≥ gameRow
+    const foo = points.some(point => {
+        return point.y + box.y + 1 >= gameRow
+    })
+    
+    // 只要有一个点大于了 游戏范围的话，那就不可以移动了
+    console.log(foo)
+
+
+    // 2. 检测是不是有某个点超出了游戏的范围
+    box.y++
+}
