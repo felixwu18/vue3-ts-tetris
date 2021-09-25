@@ -8,6 +8,8 @@
 
 <script setup lang="ts">
 
+const color = 'gray'
+
 </script>
 
 
@@ -15,7 +17,7 @@
 .box {
     width: 20px;
     height: 20px;
-    background: gray;
+    background:  v-bind(color);
     margin: 2px;
 }
 </style>
