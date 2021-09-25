@@ -2,28 +2,16 @@
 // 游戏的出口 放所有的游戏 业务逻辑
 
 export * from './config'
-// // export { map } from './map' 
+import { gameRow, gameCol } from '../game'
 
-// import { Box } from './box' 
-// import { initMap } from './map'
-// import { render } from './render' 
+// map 地图
+export const map = []
 
-
-// export function startGame(map) {
-//     initMap(map)
-//     // box
-//     // 我要有一个方块
-    
-//     const box = new Box()
-//     box.x = 3
-//     box.y = 6
-    
-//     render(box, map)
-    
-//     // 方块可以掉落
-//     window.addEventListener("keydown", () => {
-//         box.y++
-//         console.log('keydown')
-//         render(box, map)
-//     })
-// }
+// initMap 初始化
+for(let i = 0; i < gameRow; i++) {
+  const arr: Array<number> = []
+    for(let j = 0; j < gameCol; j++) {
+        arr.push(0)
+    }
+  map.push(arr)
+}
