@@ -4,33 +4,34 @@
 export * from './config'
 
 import { Box } from './box'
-import { initMap } from './map'
+import { initMap, addBoxToMap } from './map'
 import { render } from './render'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
-import { hitBottomBoundary } from './hit'
+import { hitBottomBoundary, hitBottomBox } from './hit'
 
 
+let activeBox;
 export function startGame(map) {
     initMap(map)
 
     // box
     // 我要有一个方块 利用oop对象的思想 将方块逻辑抽离 实现方块的行为
 
-    const box = new Box()
-    box.x = 1
-    box.y = 3
+    activeBox = new Box()
+    activeBox.x = 1
+    activeBox.y = 3
 
     //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
     // 1秒执行一次
-    let timeInterval = 1000
+    let timeInterval = 500
     const isDown = intervalTimer(timeInterval)
 
     function handleTicker (n) {
         if(isDown(n)) {
-            moveDown(box, map)
+            moveDown(activeBox, map)
         }
-        render(box, map)
+        render(activeBox, map)
     }
 
 
@@ -38,9 +39,23 @@ export function startGame(map) {
     
 
     // 方块可以掉落 添加游戏对象的移动行为
-    window.addEventListener("keydown", () => {
-        box.y++
+    window.addEventListener("keydown", (e) => {
+        // box.y++
         console.log('keydown')
+        console.log(e.code);
+        switch (e.code) {
+            
+            case "ArrorLeft":
+                activeBox.x--;
+                break;
+
+            case "ArrorRight":
+                activeBox.x++;
+                break;
+
+            default:
+                break;
+        }
     })
 }
 
@@ -52,7 +67,21 @@ export function moveDown(box, map) {
     //     [1, 1],
     // ]
     
-    if(hitBottomBoundary(box, map)) return
+    if(hitBottomBoundary(box, map) || hitBottomBox(box, map)) {
+
+        // box => add map (-1)
+        addBoxToMap(box, map)
+
+        // 检测是否可以消行
+        // 1. 先获取所有满行的 索引
+        
+        // 1. 基于索引做删除 再对应增加行
+
+        // 来一个新的box
+        activeBox = new Box()
+
+        return
+    }
 
     // 2. 检测是不是有某个点超出了游戏的范围
     box.y++

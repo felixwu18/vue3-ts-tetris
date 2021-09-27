@@ -4,7 +4,9 @@ export function render(box, map)  {
   // 重置map
   for(let i = 0; i < map.length; i++) {
       for(let j = 0; j < map.length; j++) {
-        map[i][j] = 0
+        if(map[i][j] > 0) {
+          map[i][j] = 0
+        }
       }
   }
 
