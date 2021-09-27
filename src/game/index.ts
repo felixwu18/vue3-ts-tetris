@@ -8,7 +8,7 @@ import { initMap } from './map'
 import { render } from './render'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
-import { getBottomPoints } from './matrix'
+import { hitBottomBoundary } from './hit'
 
 
 export function startGame(map) {
@@ -52,18 +52,6 @@ export function moveDown(box, map) {
     //     [1, 1],
     // ]
     
-    function hitBottomBoundary(box, map) {
-        const points = getBottomPoints(box.shape);
-        // y
-        // point.y + box.y + 1 >= gameRow
-        const mapRow = map.length;
-      
-        return points.some((point) => {
-          return point.y + box.y + 1 >= mapRow;
-        });
-       // 只要有一个点大于了 游戏范围的话，那就不可以移动了
-      }
-
     if(hitBottomBoundary(box, map)) return
 
     // 2. 检测是不是有某个点超出了游戏的范围
