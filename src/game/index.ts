@@ -19,12 +19,12 @@ export function startGame(map) {
     // 我要有一个方块 利用oop对象的思想 将方块逻辑抽离 实现方块的行为
 
     activeBox = new Box()
-    activeBox.x = 1
-    activeBox.y = 3
+    activeBox.x = 0
+    activeBox.y = 0
 
     //  box => map => 1 让box赋值给map 让对于type变为1 实现变色
     // 1秒执行一次
-    let timeInterval = 500
+    let timeInterval = 1000
     const isDown = intervalTimer(timeInterval)
 
     function handleTicker (n) {
@@ -45,11 +45,11 @@ export function startGame(map) {
         console.log(e.code);
         switch (e.code) {
             
-            case "ArrorLeft":
+            case "ArrowLeft":
                 activeBox.x--;
                 break;
 
-            case "ArrorRight":
+            case "ArrowRight":
                 activeBox.x++;
                 break;
 
