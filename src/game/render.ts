@@ -16,7 +16,10 @@ export function render(box, map)  {
         for(let j = 0; j < box.shape[0].length; j++) {
           const row = i + box.y
           const col = j + box.x
-          map[row][col] = 1
+
+          if(box.shape[i][j] > 0) {
+            map[row][col] = 1
+          }
         }
     }
 }
