@@ -4,7 +4,7 @@
 export * from './config'
 
 import { Box } from './box'
-import { initMap, addBoxToMap } from './map'
+import { initMap, addBoxToMap, eliminateLine } from './map'
 import { render } from './render'
 import { addTicker } from './ticker'
 import { intervalTimer } from './utils'
@@ -71,25 +71,8 @@ export function moveDown(box, map) {
 
         // box => add map (-1)
         addBoxToMap(box, map)
-
-        // 检测是否可以消行
-        // 1. 先获取所有满行的 索引
-        const lines = map.reduce((cacheArr, arr, index) => {
-            const boo = arr.every(v => v === -1)
-            if (boo) {
-                cacheArr.push(index)
-            }
-            return cacheArr
-        }, [])
-        console.log(lines, 'lines');
-        
-        // 1. 基于索引做删除 再对应增加行
-        const mapCol = map[0].length
-        lines.forEach((n) => {
-            map.splice(n, 1)
-            
-            map.unshift(new Array(mapCol).fill(0))
-        })
+        // 检测并消行
+        eliminateLine(map)
 
         // 来一个新的box
         activeBox = new Box()

@@ -25,3 +25,35 @@ export function addBoxToMap(box, map) {
   }
 }
 
+
+export function eliminateLine(map) {
+  // 检测是否可以消行
+  // 1. 先获取所有满行的 索引
+  const lines = getEliminateLines()
+  console.log(lines, 'lines');
+
+  // 2. 基于索引做删除 再对应增加行
+    _eliminateLine(lines)
+
+  // 更极致写法   _eliminateLine(getEliminateLines())
+
+
+  function _eliminateLine(lines) {
+    const mapCol = map[0].length
+    lines.forEach((n) => {
+        map.splice(n, 1)
+        
+        map.unshift(new Array(mapCol).fill(0))
+    })
+  }
+
+  function getEliminateLines() {
+    return map.reduce((cacheArr, arr, index) => {
+      const boo = arr.every(v => v === -1)
+      if (boo) {
+          cacheArr.push(index)
+      }
+      return cacheArr
+    }, [])
+  }
+}
