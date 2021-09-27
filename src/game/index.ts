@@ -51,6 +51,10 @@ export function startGame(map) {
                 activeBox.x++;
                 break;
 
+            case "ArrowUp":
+                activeBox.rotate();
+                break;
+
             default:
                 break;
         }
